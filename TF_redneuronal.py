@@ -34,25 +34,20 @@ eX = tf.placeholder('float', shape=[None, X.shape[1]])
 eY = tf.placeholder('float', shape=[None])
 
 ta = 0.00 #taza de aprendizaje
-nn = [2,16,8,1] #Número de neuronas por capa
+nn = [16,8,1] #Número de neuronas por capa
 
-#Capa 1
-c1 = tf.Variable(tf.random_normal([nn[0], nn[1]]), name= 'Capa1')
-b1 = tf.Variable(tf.random_normal([nn[1]]), name ='bias1')
+#Capa 2
+c1 = tf.Variable(tf.random_normal([nn[0], nn[1]]), name= 'Capa2')
+b1 = -1
 #Función de activación ReLU
 l1 = tf.nn.relu(tf.add(tf.matmul(eX, c1), b1))
 
-#Capa 2
-c2 = tf.Variable(tf.random_normal([nn[1], nn[2]]), name= 'Capa2')
-b2 = tf.Variable(tf.random_normal([nn[2]]), name ='bias2')
-#Función de activación ReLU
-l2 = tf.nn.relu(tf.add(tf.matmul(l1, c2), b2))
 
 #Capa 3
-c3 = tf.Variable(tf.random_normal([nn[2], nn[3]]), name= 'Capa3')
-b3 = tf.Variable(tf.random_normal([nn[3]]), name ='bias3')
+c2 = tf.Variable(tf.random_normal([nn[1], nn[2]]), name= 'Capa3')
+b2 = -1
 #Función sigmoide para acotar los valores en 0 y 1
-sY = tf.nn.sigmoid(tf.add(tf.matmul(l2,c3), b3))[:, 0]
+sY = tf.nn.sigmoid(tf.add(tf.matmul(l1,c2), b2))[:, 0]
 
 #Cálculo del error
 error = tf.losses.mean_squared_error(sY, eY)
