@@ -32,21 +32,21 @@ print("Construimos arquitectura")
 #Defino entrada de la red para la matriz X e Y: capa de entrada y capa de salida
 eX = tf.placeholder('float', shape=[None, X.shape[1]])
 eY = tf.placeholder('float', shape=[None])
-
 ta = 0.00 #taza de aprendizaje
-nn = [16,8,1] #Número de neuronas por capa
+nn = [2,10,1] #numero de neuronas por capa
+
+print(eX)
 
 #Capa 2
 c1 = tf.Variable(tf.random_normal([nn[0], nn[1]]), name= 'Capa2')
 b1 = -1
-#Función de activación ReLU
+#Funcion de activacion ReLU
 l1 = tf.nn.relu(tf.add(tf.matmul(eX, c1), b1))
-
 
 #Capa 3
 c2 = tf.Variable(tf.random_normal([nn[1], nn[2]]), name= 'Capa3')
 b2 = -1
-#Función sigmoide para acotar los valores en 0 y 1
+#Funcion sigmoide para acotar los valores en 0 y 1
 sY = tf.nn.sigmoid(tf.add(tf.matmul(l1,c2), b2))[:, 0]
 
 #Cálculo del error
